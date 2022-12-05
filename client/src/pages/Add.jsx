@@ -34,9 +34,9 @@ const Add = () => {
     return (
         <div className = 'form'>
             <h1> Add New Concert</h1>
-            <input type="text" placeholder="Artist Name" onChange={handleChange} name="artistName"/>
             <input type="text" placeholder="Tour Name" onChange={handleChange} name="tourName"/>
-            <input type="text" placeholder="Date of Concert" onChange={handleChange} name="concertDate"/>
+            <input type="text" placeholder="Artist Name" onChange={handleChange} name="artistName"/>
+            <input type="text" placeholder="Date of Concert (YYYY-MM-DD)" onChange={handleChange} name="concertDate"/>
 
             <button className="formButton" onClick={handleClick}>Add</button>
 
