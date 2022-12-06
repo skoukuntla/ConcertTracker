@@ -6,7 +6,8 @@ import {
 import Add from "./pages/Add";
 import Concerts from "./pages/Concerts";
 import Update from "./pages/Update";
-import "./style.css"
+import Login from "./pages/login/Login"
+import Register from "./pages/register/Register"
 
 
 function App() {
@@ -14,7 +15,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route path ="/" element={<Concerts/>}/>
+        <Route path="/" element={<Login/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path ="/concerts" element={<Concerts/>}/>
         <Route path ="/add" element={<Add/>}/>
         <Route path ="/update/:concertID" element={<Update/>}/>
       </Routes>
