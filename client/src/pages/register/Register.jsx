@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
     name: "",
   });
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState(null);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));

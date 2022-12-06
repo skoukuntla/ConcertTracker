@@ -8,9 +8,13 @@ import Concerts from "./pages/Concerts";
 import Update from "./pages/Update";
 import Login from "./pages/login/Login"
 import Register from "./pages/register/Register"
+/*import { AuthContext } from "./context/authContext";
+import { useContext } from "react";*/
+
 
 
 function App() {
+  //const { currentUser } = useContext(AuthContext);
   return (
     <div className="App">
       <BrowserRouter>
