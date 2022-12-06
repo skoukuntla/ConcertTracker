@@ -1,19 +1,29 @@
 import express from "express"
-import mysql from "mysql"
-import cors from "cors"
 const app = express() //server
 
+import userRoutes from "./routes/users.js"
+import authRoutes from "./routes/auth.js"
+import concertRoutes from "./routes/concerts.js"
 
-const db = mysql.createConnection({ //create database connection
-    host: "localhost",
-    user: "root",
-    password: "hero243REFR",
-    database: "test"
-})
+import { db } from "./connect.js"
+import cors from "cors"
+import cookieParser from "cookie-parser"
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+  });
+  app.use(express.json());
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+    })
+  );
+  app.use(cookieParser());
 
-app.use(express.json()) // allows us to send json files to server from client
-app.use(cors()) // allows front end to access backend (permissions)
+  app.use("/backend/users/", userRoutes)
+  app.use("/backend/auth/", authRoutes)
+  app.use("/backend/concerts/", concertRoutes)
 
 app.get("/", (req, res)=>{ //default page : localhost:8800
     res.json("sup senorita")
@@ -26,7 +36,6 @@ app.get("/concerts", (req,res)=>{ // get all concerts from db
         return res.json(data)
     })
 })
-
 
 app.post("/concerts",(req,res)=>{ // insert concert into db
     const sendConcert = "INSERT INTO concerts(`tourName`, `artistName`, `concertDate`) VALUES (?)"
