@@ -9,12 +9,15 @@ import Topbar from '../components/Topbar'
 
 const Artists = () => {
     const { currentUser } = useContext(AuthContext);
+
+    const username = currentUser.username;
+
     console.log("user", currentUser);
     const [artists, setArtists] = useState([])
     useEffect(()=>{
         const fetchAllArtists = async ()=>{ // async function since making api request
             try{
-                const res = await axios.get("http://localhost:8800/artists")
+                const res = await axios.get("http://localhost:8800/artists/" + username)
                 setArtists(res.data);
                 console.log(res)
             }catch(err){
@@ -23,7 +26,7 @@ const Artists = () => {
         }
 
         fetchAllArtists()
-    },[])
+    },[username])
 
 
     const handleDelete = async (artistID) => {
@@ -47,12 +50,11 @@ const Artists = () => {
     <div className ="artists">
     {artists.map(artist=>(
         <div className="artist" key={artist.artistID}>
-            <h2>{artist.tourName}</h2>
             <h3>{artist.artistName}</h3>
-            <p>{artist.artistDate}</p>
+            <p>{artist.genre}</p>
 
             <button className="delete" onClick={() => handleDelete(artist.artistID)}>Delete</button>
-            <button className="update"><Link to={`/update/${artist.artistID}`}>Update</Link></button>
+            <button className="update"><Link to={`/updateArtist/${artist.artistID}`}>Update</Link></button>
 
         </div>    
     ))

@@ -3,36 +3,50 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./addlocation.css";
-import Topbar from '../components/Topbar'
+import Topbar from '../components/Topbar';
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 const AddLocation = () => {
-  const [location, setLocations] = useState({
+  const { currentUser } = useContext(AuthContext);
+
+
+  const [city, setCity] = useState({
     //location is the object and setLocations is the setter method
     cityName: "",
     stateName: "",
+    date: "",
+    username:currentUser.username
+  });
+
+  const [venue, setVenue] = useState({
+    //location is the object and setLocations is the setter method
     venueName: "",
     sectionNumber: "",
-    locationDate: ""
+    date: "",
+    username:currentUser.username
   });
+
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setLocations((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setCity((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setVenue((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      //if it works
-      await axios.post("http://localhost:8800/locations", location); //input into the database
+      await axios.post("http://localhost:8800/addCity", city); //input city into the database
+      await axios.post("http://localhost:8800/addVenue", venue); //input venue into the database
       navigate("/locations"); //send client back to the location homepage
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(location);
+  
 
   return (
     <>
@@ -68,7 +82,7 @@ const AddLocation = () => {
           type="date"
           placeholder="Date of Concert"
           onChange={handleChange}
-          name="locationDate"
+          name="date"
         />
 
         <button className="formButton" onClick={handleClick}>

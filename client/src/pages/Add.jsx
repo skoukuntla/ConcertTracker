@@ -4,13 +4,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./add.css";
 import Topbar from '../components/Topbar'
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 const Add = () => {
+  const { currentUser } = useContext(AuthContext);
   const [concert, setConcerts] = useState({
     //concert is the object and setConcerts is the setter method
     artistName: "",
     tourName: "",
     concertDate: "",
+    username: currentUser.username
   });
 
   const navigate = useNavigate();

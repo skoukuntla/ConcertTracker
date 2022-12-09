@@ -3,13 +3,18 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./addartist.css";
-import Topbar from '../components/Topbar'
+import Topbar from '../components/Topbar';
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 const AddArtist = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const [artist, setArtists] = useState({
     //artist is the object and setArtists is the setter method
     artistName: "",
-    genre: ""
+    genre: "",
+    username:currentUser.username
   });
 
   const navigate = useNavigate();
@@ -22,7 +27,7 @@ const AddArtist = () => {
     e.preventDefault();
     try {
       //if it works
-      await axios.post("http://localhost:8800/artists", artist); //input into the database
+      await axios.post("http://localhost:8800/addArtist", artist); //input into the database
       navigate("/artists"); //send client back to the artist homepage
     } catch (error) {
       console.log(error);

@@ -12,18 +12,19 @@ margin: 50px;
 }
 
 .artists{ /* artists is an array that holds each of the artist objects and its information. this is styling all of the columns as a whole */
-  display: flex;
-  gap: 50px;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  
 }
 
 .artist{ /* artist is each artist on its own (styling each of the artist columns */
-  flex: 1; /*makes everything the same size*/
-  /* padding: 50px;  when padding, always include px so that it works. padding properties are used to generate space around an element's content, inside of any defined borders*/
+  flex: 1; /*makes everything the same size*/ 
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  flex-direction: row; 
   align-items: center;
-  margin: 10px;
+  text-align: center;
+  justify-content: space-evenly;
 }
 
 

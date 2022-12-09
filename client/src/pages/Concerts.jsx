@@ -9,12 +9,15 @@ import Topbar from '../components/Topbar'
 
 const Concerts = () => {
     const { currentUser } = useContext(AuthContext);
+
+    const username = currentUser.username;
+
     console.log("user", currentUser);
     const [concerts, setConcerts] = useState([])
     useEffect(()=>{
         const fetchAllConcerts = async ()=>{ // async function since making api request
             try{
-                const res = await axios.get("http://localhost:8800/concerts")
+                const res = await axios.get("http://localhost:8800/concerts/" + username)
                 setConcerts(res.data);
                 console.log(res)
             }catch(err){
@@ -23,7 +26,7 @@ const Concerts = () => {
         }
 
         fetchAllConcerts()
-    },[])
+    },[username])
 
 
     const handleDelete = async (concertID) => {

@@ -19,6 +19,7 @@ import Report1 from "./pages/Report1";
 import Report2 from "./pages/Report2";
 import Report3 from "./pages/Report3";
 import Report4 from "./pages/Report4";
+import UpdateArtist from "./pages/UpdateArtist";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path ="/artists" element={<Artists/>}/>
         <Route path ="/locations" element={<Locations/>}/>
         <Route path ="/addArtist" element={<AddArtist/>}/>
+        <Route path ="/updateArtist/:artistID" element={<UpdateArtist/>}/>
         <Route path ="/addLocation" element={<AddLocation/>}/>
         <Route path ="/reports" element={<Reports/>}/>
         <Route path ="/report1" element={<Report1/>}/>

@@ -9,12 +9,15 @@ import Topbar from '../components/Topbar'
 
 const Locations = () => {
     const { currentUser } = useContext(AuthContext);
+
+    const username = currentUser.username;
+
     console.log("user", currentUser);
     const [locations, setLocations] = useState([])
     useEffect(()=>{
         const fetchAllLocations = async ()=>{ // async function since making api request
             try{
-                const res = await axios.get("http://localhost:8800/locations")
+                const res = await axios.get("http://localhost:8800/locations/" + username)
                 setLocations(res.data);
                 console.log(res)
             }catch(err){
@@ -23,17 +26,34 @@ const Locations = () => {
         }
 
         fetchAllLocations()
-    },[])
+    },[username])
 
 
-    const handleDelete = async (locationID) => {
-        try {
-            await axios.delete("http://localhost:8800/locations/"+locationID)
-            window.location.reload() //refreshes the page automatically
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const handleDelete = async (location) => {
+    //     try {
+       
+    //     const city = {
+    //         cityName: location.city,
+    //         stateName: location.state,
+    //         date: location.date
+    //     }
+
+    //     const venue = {
+    //         venueName: location.venue,
+    //         sectionNumber: location.sectionNumber,
+    //         date: location.date
+    //     }
+   
+    //     console.log(city)
+    //     console.log(venue)
+
+    //     await axios.delete("http://localhost:8800/city/"+location.city+"/"+location.state+"/"+location.date)
+    //     await axios.delete("http://localhost:8800/venue"+location.venue+"/"+location.sectionNumber+"/"+location.date)
+    //    // window.location.reload() //refreshes the page automatically
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
 
 
@@ -46,12 +66,12 @@ const Locations = () => {
  
     <div className ="locations">
     {locations.map(location=>(
-        <div className="location" key={location.locationID}>
-            <h2>{location.cityName}, {location.stateName}</h2>
-            <h3>{location.venueName}, {location.sectionNumber}</h3>
-            <p>{location.locationDate}</p>
+        <div className="location">
+            <h2>{location.city}, {location.state}</h2>
+            <h3>{location.venue}, {location.sectionNumber}</h3>
+            <p>{location.date}</p>
 
-            <button className="delete" onClick={() => handleDelete(location.locationID)}>Delete</button>
+            {/* <button className="delete" onClick={() => handleDelete(location)}>Delete</button> */}
         </div>    
     ))
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./register.scss";
 import axios from "axios";
+import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
 
 const Register = () => {
 
@@ -21,11 +23,13 @@ const Register = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const { login } = useContext(AuthContext);
   const handleClick = async (e) => {
     e.preventDefault();
 
     try {
       await axios.post("http://localhost:8800/backend/auth/register", inputs);
+      await login(inputs);
       navigate("/home")
     } catch (err) {
       setErr(err.response.data);
