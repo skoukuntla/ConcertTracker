@@ -2,8 +2,14 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import "./concerts.css";
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+import Topbar from '../components/Topbar'
 
 const Concerts = () => {
+    const { currentUser } = useContext(AuthContext);
+    console.log("user", currentUser);
     const [concerts, setConcerts] = useState([])
     useEffect(()=>{
         const fetchAllConcerts = async ()=>{ // async function since making api request
@@ -32,8 +38,12 @@ const Concerts = () => {
 
 
   return (
-    <div>
-    <h1>My Concerts</h1>
+    <>
+    <Topbar />
+    <div className='concertPage'>
+    <h1 className='header'><u>{currentUser.name}'s Concerts</u></h1>
+
+ 
     <div className ="concerts">
     {concerts.map(concert=>(
         <div className="concert" key={concert.concertID}>
@@ -49,10 +59,11 @@ const Concerts = () => {
 
     }
     </div>
-    <button><Link to="/add">Add New Concert</Link></button>
+    <button className='addC'><Link to="/add">Add New Concert</Link></button>
 
     </div>
-  )
+    </>
+  );
 }
 
 export default Concerts

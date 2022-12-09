@@ -1,0 +1,58 @@
+.reportPage{
+    /* height: 100vh;  */
+    margin: 130px 130px;
+    /* display:flex; */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.report{ /* report is each concert on its own (styling each of the concert columns */
+    flex: 1; /*makes everything the same size*/
+    /* padding: 50px;  when padding, always include px so that it works. padding properties are used to generate space around an element's content, inside of any defined borders*/
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    margin: 10px;
+}
+
+.reports{ /* reports is an array that holds each of the concert objects and its information. this is styling all of the columns as a whole */
+    display: flex;
+    gap: 50px;
+}
+
+/* CSS for the ADD button*/
+.addR {
+    margin-top: 75px;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    box-sizing: border-box;
+    color:palegreen;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Amazon Ember",sans-serif;
+    font-size: 13px;
+    line-height: 29px;
+    padding: 0 10px 0 11px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: 100px;
+  }
+  
+  .addR:hover {
+    background-color: #f7fafa;
+  }
+  
+  .addR:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+  }

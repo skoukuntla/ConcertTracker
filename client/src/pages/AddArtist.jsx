@@ -2,48 +2,41 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./add.css";
+import "./addartist.css";
 import Topbar from '../components/Topbar'
 
-const Add = () => {
-  const [concert, setConcerts] = useState({
-    //concert is the object and setConcerts is the setter method
+const AddArtist = () => {
+  const [artist, setArtists] = useState({
+    //artist is the object and setArtists is the setter method
     artistName: "",
-    tourName: "",
-    concertDate: "",
+    genre: ""
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setConcerts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setArtists((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       //if it works
-      await axios.post("http://localhost:8800/concerts", concert); //input into the database
-      navigate("/concerts"); //send client back to the concert homepage
+      await axios.post("http://localhost:8800/artists", artist); //input into the database
+      navigate("/artists"); //send client back to the artist homepage
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(concert);
+  console.log(artist);
 
   return (
     <>
     <Topbar />
     <div className="Add">
       <div className="form">
-        <h1> Add New Concert</h1>
-        <input
-          type="text"
-          placeholder="Tour Name"
-          onChange={handleChange}
-          name="tourName"
-        />
+        <h1> Add New Artist</h1>
         <input
           type="text"
           placeholder="Artist Name"
@@ -51,10 +44,10 @@ const Add = () => {
           name="artistName"
         />
         <input
-          type="date"
-          placeholder="Date of Concert (YYYY-MM-DD)"
+          type="text"
+          placeholder="Artist Genre"
           onChange={handleChange}
-          name="concertDate"
+          name="genre"
         />
 
         <button className="formButton" onClick={handleClick}>
@@ -66,4 +59,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default AddArtist;

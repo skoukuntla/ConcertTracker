@@ -1,0 +1,51 @@
+.topbarContainer {
+    height: 50px;
+    width: 100%;
+    background-color:  rgba(22, 155, 207, 0.5);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .topbarLeft {
+    flex: 3;
+  }
+  
+  .home {
+    font-size: 24px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+
+  .link {
+    font-size: 18px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .topbarCenter {
+    flex: 5;
+  } 
+
+  
+  .topbarRight {
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+  }
+
+  
+  .logoutbutton {
+    font-size: 18px;
+    margin-left: 20px;
+    color: white;
+    cursor: pointer;
+  }

@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.scss";
 import axios from "axios";
 
 const Register = () => {
+
+  const navigate = useNavigate()
+
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
     password: "",
     name: "",
+    age: "",
+    favArtist: ""
   });
   const [err, setErr] = useState(null);
 
@@ -21,6 +26,7 @@ const Register = () => {
 
     try {
       await axios.post("http://localhost:8800/backend/auth/register", inputs);
+      navigate("/home")
     } catch (err) {
       setErr(err.response.data);
     }
@@ -65,6 +71,18 @@ const Register = () => {
               type="text"
               placeholder="Name"
               name="name"
+              onChange={handleChange}
+            />
+            <input
+              type="int"
+              placeholder="Age"
+              name="age"
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Your Favorite Artist"
+              name="favArtist"
               onChange={handleChange}
             />
             {err && err}
