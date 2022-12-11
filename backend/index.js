@@ -172,6 +172,61 @@ app.get("/locations1/:username", (req,res)=>{ // get all concerts from db
 
 //END OF ORM
 
+
+// PREPARED STATEMENT QUERIES FOR REPORTS
+app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concerts from db
+
+    const values = [ /*"Lil Nas X", "Montero", "2022-09-11" */
+    req.params.cityName, //cityName
+    req.params.tourName, //tourName
+    req.params.username  //username  
+]
+
+    //console.log("values" , values);
+
+    const getAllUsers = "SELECT DISTINCT (con.username) FROM concerts con, city c1 WHERE con.concertDate = c1.date AND c1.city = ? AND con.tourName = ? AND con.username != ?";
+    db.query(getAllUsers, [ 
+    req.params.cityName, //cityName
+    req.params.tourName, //tourName
+    req.params.username  //username  
+], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/report2/:venueName", (req,res)=>{
+
+    const getCountUsers = "SELECT DISTINCT con.tourName, con.artistName, DATE_FORMAT(con.concertDate, '%m-%d-%Y') AS concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ORDER BY concertDate";
+    //SELECT DATE_FORMAT(concertDate, '%m-%d-%Y')  as concertDate, tourName, artistNam
+    db.query(getCountUsers, [req.params.venueName], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/report3/:favArtist", (req,res)=>{ 
+
+    const getCountUsers = "SELECT t1.age FROM (SELECT favArtist, avg(age) AS age FROM users GROUP BY favArtist) as t1 WHERE t1.favArtist= ?";
+    db.query(getCountUsers, [req.params.favArtist], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/report4/:date1/:date2/:username", (req,res)=>{ 
+
+    const getConcerts = "SELECT con.tourName, con.artistName FROM concerts con WHERE con.concertDate >= ? AND con.concertDate <= ? AND con.username = ?";
+    db.query(getConcerts, [req.params.date1, req.params.date2, req.params.username], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+
+// end of reports
+
+
 // concerts api calls
 app.get("/concerts/:username", (req,res)=>{ // get all concerts from db
     const username = req.params.username;
@@ -360,55 +415,6 @@ app.get("/locations/:username", (req,res)=>{ // get all concerts from db
     })
 })
 
-
-app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concerts from db
-
-    const values = [ /*"Lil Nas X", "Montero", "2022-09-11" */
-    req.params.cityName, //cityName
-    req.params.tourName, //tourName
-    req.params.username  //username  
-]
-
-    //console.log("values" , values);
-
-    const getAllUsers = "SELECT DISTINCT (con.username) FROM concerts con, city c1 WHERE con.concertDate = c1.date AND c1.city = ? AND con.tourName = ? AND con.username != ?";
-    db.query(getAllUsers, [ 
-    req.params.cityName, //cityName
-    req.params.tourName, //tourName
-    req.params.username  //username  
-], (err,data)=>{
-        if(err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.get("/report2/:venueName", (req,res)=>{
-
-    const getCountUsers = "SELECT DISTINCT con.tourName, con.artistName, DATE_FORMAT(con.concertDate, '%m-%d-%Y') AS concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ORDER BY concertDate";
-    //SELECT DATE_FORMAT(concertDate, '%m-%d-%Y')  as concertDate, tourName, artistNam
-    db.query(getCountUsers, [req.params.venueName], (err,data)=>{
-        if(err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.get("/report3/:favArtist", (req,res)=>{ 
-
-    const getCountUsers = "SELECT t1.age FROM (SELECT favArtist, avg(age) AS age FROM users GROUP BY favArtist) as t1 WHERE t1.favArtist= ?";
-    db.query(getCountUsers, [req.params.favArtist], (err,data)=>{
-        if(err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.get("/report4/:date1/:date2/:username", (req,res)=>{ 
-
-    const getConcerts = "SELECT con.tourName, con.artistName FROM concerts con WHERE con.concertDate >= ? AND con.concertDate <= ? AND con.username = ?";
-    db.query(getConcerts, [req.params.date1, req.params.date2, req.params.username], (err,data)=>{
-        if(err) return res.json(err)
-        return res.json(data)
-    })
-})
 
 
 app.listen(8800, ()=>{ // connect server to port

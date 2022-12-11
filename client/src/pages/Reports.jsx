@@ -74,7 +74,7 @@ const Reports = () => {
 
           <div className="report">
           <h3 className="reportHeader">Report 2: What concerts were held at this venue?</h3>
-            <p>Have you ever wondered about what other concerts where ever held at a venue? Just type in the name of the venue and we'll tell you all the concerts our users have been to at this venue!</p>
+            <p>Have you ever wondered about what other concerts were ever held at a venue? Just type in the name of the venue and we'll tell you all the concerts our users have been to at this venue!</p>
             <input
             type="text"
             placeholder="Venue Name"
@@ -97,7 +97,7 @@ const Reports = () => {
           </div> {/* div that is formmating report 3 column */}
 
           <div className="report">
-          <h3 className="reportHeader">Report 4: What concerts did I between two dates</h3>
+          <h3 className="reportHeader">Report 4: What concerts did I go to between two dates</h3>
             <p>Have you ever wondered about which concerts you went to during a specific date range? Just type in the two dates and we'll list all the concerts you went to (not excluding your emo phase kek rawr XD)!</p>
             <input
             type="date"
