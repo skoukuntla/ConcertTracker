@@ -36,7 +36,7 @@ const Report2 = () => {
     <div className='reportPage'>
     <h1><u>{currentUser.name}'s Report 2</u></h1>
     <p className='paragraph'>
-      Here is concert information for the performances that other users attended which happened at the venue you requested:
+      Here is concert information for the performances that other users attended which happened at <b>{venueName}</b>:
     </p>
  
     <div className='artists'>

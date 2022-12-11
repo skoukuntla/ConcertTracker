@@ -43,6 +43,7 @@ function App() {
         <Route path ="/reports" element={<Reports/>}/>
         <Route path ="/report1/:tourName/:city" element={<Report1/>}/>
         <Route path ="/report2/:venueName" element={<Report2/>}/>
+        <Route path ="/report3/:favArtist" element={<Report3/>}/>
 
       </Routes>
       </BrowserRouter>

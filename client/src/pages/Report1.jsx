@@ -41,7 +41,7 @@ const Report1 = () => {
     <div className='reportPage'>
     <h1><u>{currentUser.name}'s Report 1</u></h1>
     <p className='paragraph'>
-      Here are all the users who have attend the same tour in the same city as you:
+      Here are all the users who attended <b>{tourName}</b> in <b>{cityName}</b>:
     </p>
  
     <div>

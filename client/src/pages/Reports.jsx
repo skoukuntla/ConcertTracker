@@ -27,6 +27,14 @@ const Reports = () => {
     const handleChange2 = (e) => {
       setQuery2((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
+
+    const [query3, setQuery3] = useState({
+      favArtist: "",
+    });
+    
+    const handleChange3 = (e) => {
+      setQuery3((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
   
 
 
@@ -38,7 +46,7 @@ const Reports = () => {
         <div className="reports">
           <div className="report">
           <h3>Report 1: Who went to your show?</h3>
-            <p>Do you want to know the other users who went to the same tour in the same city as you? This is a great way of meeting new users who are in your area and enjoy the same artist as you!</p>
+            <p>Have you ever wondered which users went to a tour in a specific city? This is a great way of seeing which users are in your area and enjoy the same artist as you!</p>
             <input
             type="text"
             placeholder="Tour Name"
@@ -69,9 +77,15 @@ const Reports = () => {
           </div> {/* div that is formmating report 2 column */}
 
           <div className="report">
-            <h3>Report 3</h3>
-            <p> Descrption report 3</p>
-            <button className='addR'><Link to="/report3">Generate</Link></button>
+            <h3>Report 3: What is the average age of users with the same favorite artist?</h3>
+            <p>Have you ever wondered about the average age of people who have the same favorite artist? Just type in the name of the artist and we'll tell you their fanbase's average age!</p>
+            <input
+            type="text"
+            placeholder="Fav Artist Name"
+            onChange={handleChange3}
+            name="favArtist"
+          />
+            <button className='addR'><Link to={`/report3/${query3.favArtist}`}>Generate</Link></button>
           </div> {/* div that is formmating report 3 column */}
 
           <div className="report">

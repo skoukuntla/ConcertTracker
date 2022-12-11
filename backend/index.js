@@ -236,10 +236,19 @@ app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concer
     })
 })
 
-app.get("/report2/:venueName", (req,res)=>{ // get all concerts from db
+app.get("/report2/:venueName", (req,res)=>{
 
-    const getAllConcerts = "SELECT DISTINCT con.tourName, con.artistName, con.concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ";
-    db.query(getAllConcerts, [req.params.venueName], (err,data)=>{
+    const getCountUsers = "SELECT DISTINCT con.tourName, con.artistName, con.concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ORDER BY con.concertDate";
+    db.query(getCountUsers, [req.params.venueName], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/report3/:favArtist", (req,res)=>{ 
+
+    const getCountUsers = "SELECT t1.age FROM (SELECT favArtist, avg(age) AS age FROM users GROUP BY favArtist) as t1 WHERE t1.favArtist= ?";
+    db.query(getCountUsers, [req.params.favArtist], (err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
     })
