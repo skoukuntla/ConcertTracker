@@ -29,34 +29,6 @@ const Locations = () => {
     },[username])
 
 
-    // const handleDelete = async (location) => {
-    //     try {
-       
-    //     const city = {
-    //         cityName: location.city,
-    //         stateName: location.state,
-    //         date: location.date
-    //     }
-
-    //     const venue = {
-    //         venueName: location.venue,
-    //         sectionNumber: location.sectionNumber,
-    //         date: location.date
-    //     }
-   
-    //     console.log(city)
-    //     console.log(venue)
-
-    //     await axios.delete("http://localhost:8800/city/"+location.city+"/"+location.state+"/"+location.date)
-    //     await axios.delete("http://localhost:8800/venue"+location.venue+"/"+location.sectionNumber+"/"+location.date)
-    //    // window.location.reload() //refreshes the page automatically
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-
-
   return (
     <>
     <Topbar />
