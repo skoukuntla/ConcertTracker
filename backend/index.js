@@ -31,12 +31,14 @@ app.use((req, res, next) => {
 // concerts api calls
 app.get("/concerts/:username", (req,res)=>{ // get all concerts from db
     const username = req.params.username;
-    const getAllConcerts = "SELECT * FROM concerts WHERE username = ?"
+    const getAllConcerts = "SELECT DATE_FORMAT(concertDate, '%m-%d-%Y')  as concertDate, tourName, artistName FROM concerts WHERE username = ?"
     db.query(getAllConcerts, [username], (err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
     })
 })
+
+
 
 app.post("/concerts",(req,res)=>{ // insert concert into db
     const sendConcert = "INSERT INTO concerts(`tourName`, `artistName`, `concertDate`, `username`) VALUES (?)"
@@ -207,7 +209,7 @@ app.post("/addVenue",(req,res)=>{ // insert concert into db
 
 app.get("/locations/:username", (req,res)=>{ // get all concerts from db
     const username = req.params.username;
-    const getAllLocations = "SELECT * from city c1, venue v1 where c1.date = v1.date AND c1.username = ? AND (v1.username = c1.username)"
+    const getAllLocations = "SELECT DATE_FORMAT(c1.date, '%m-%d-%Y') as date, c1.city, c1.state, v1.venue, v1.sectionNumber from city c1, venue v1 where c1.date = v1.date AND c1.username = ? AND (v1.username = c1.username)"
     db.query(getAllLocations, [username], (err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
@@ -253,6 +255,16 @@ app.get("/report3/:favArtist", (req,res)=>{
         return res.json(data)
     })
 })
+
+app.get("/report4/:date1/:date2/:username", (req,res)=>{ 
+
+    const getConcerts = "SELECT con.tourName, con.artistName FROM concerts con WHERE con.concertDate >= ? AND con.concertDate <= ? AND con.username = ?";
+    db.query(getConcerts, [req.params.date1, req.params.date2, req.params.username], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 
 app.listen(8800, ()=>{ // connect server to port
     console.log("Connected to Backend!")

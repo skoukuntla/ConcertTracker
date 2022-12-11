@@ -22,9 +22,13 @@
     gap: 50px;
 }
 
+.reportHeader {
+  margin-bottom: 1px;
+}
+
 /* CSS for the ADD button*/
 .addR {
-    margin-top: 75px;
+    margin-top: 30px;
     background-color: #fff;
     border: 1px solid #d5d9d9;
     border-radius: 8px;

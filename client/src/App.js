@@ -44,6 +44,7 @@ function App() {
         <Route path ="/report1/:tourName/:city" element={<Report1/>}/>
         <Route path ="/report2/:venueName" element={<Report2/>}/>
         <Route path ="/report3/:favArtist" element={<Report3/>}/>
+        <Route path ="/report4/:date1/:date2" element={<Report4/>}/>
 
       </Routes>
       </BrowserRouter>
