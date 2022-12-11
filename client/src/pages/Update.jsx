@@ -7,7 +7,8 @@ const Update = () => {
     const [concert, setConcerts] = useState ({ //concert is the object and setConcerts is the setter method
         tourName: "",
         artistName: "",
-        concertDate: ""
+        concertDate: "",
+        city: ""
 
     })
 
@@ -41,6 +42,7 @@ const Update = () => {
             <input type="text" placeholder="Tour Name" onChange={handleChange} name="tourName"/>
             <input type="text" placeholder="Artist Name" onChange={handleChange} name="artistName"/>
             <input type="text" placeholder="Date of Concert (YYYY-MM-DD)" onChange={handleChange} name="concertDate"/>
+            <input type="text" placeholder="City" onChange={handleChange} name="city"/>
 
             <button className="formButton" onClick={handleClick}>Update</button>
 

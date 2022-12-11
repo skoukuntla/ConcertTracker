@@ -7,8 +7,8 @@ const Add = () => {
     const [concert, setConcerts] = useState ({ //concert is the object and setConcerts is the setter method
         artistName: "",
         tourName: "",
-        concertDate: ""
-
+        concertDate: "",
+        city: ""
     })
 
 
@@ -23,6 +23,7 @@ const Add = () => {
         e.preventDefault()
         try { //if it works
             await axios.post("http://localhost:8800/concerts", concert) //input into the database
+            await axios.post("http://localhost:8800/city", concert.city)
             navigate("/") //send client back to the concert homepage
         } catch (error) {
             console.log(error)
@@ -37,6 +38,7 @@ const Add = () => {
             <input type="text" placeholder="Tour Name" onChange={handleChange} name="tourName"/>
             <input type="text" placeholder="Artist Name" onChange={handleChange} name="artistName"/>
             <input type="text" placeholder="Date of Concert (YYYY-MM-DD)" onChange={handleChange} name="concertDate"/>
+            <input type="text" placeholder="City" onChange={handleChange} name="city"/>
 
             <button className="formButton" onClick={handleClick}>Add</button>
 

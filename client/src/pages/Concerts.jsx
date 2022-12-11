@@ -40,6 +40,7 @@ const Concerts = () => {
             <h2>{concert.tourName}</h2>
             <h3>{concert.artistName}</h3>
             <p>{concert.concertDate}</p>
+            <h4>{concert.city}</h4>
 
             <button className="delete" onClick={() => handleDelete(concert.concertID)}>Delete</button>
             <button className="update"><Link to={`/update/${concert.concertID}`}>Update</Link></button>
