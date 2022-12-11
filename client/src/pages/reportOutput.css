@@ -1,0 +1,8 @@
+.reportPage{
+    /* height: 100vh;  */
+    margin: 130px 130px;
+    /* display:flex; */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

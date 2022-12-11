@@ -205,9 +205,6 @@ app.post("/addVenue",(req,res)=>{ // insert concert into db
 })
 
 
-
-
-
 app.get("/locations/:username", (req,res)=>{ // get all concerts from db
     const username = req.params.username;
     const getAllLocations = "SELECT * from city c1, venue v1 where c1.date = v1.date AND c1.username = ? AND (v1.username = c1.username)"
@@ -218,12 +215,31 @@ app.get("/locations/:username", (req,res)=>{ // get all concerts from db
 })
 
 
-app.get("/report1/:tourName/:cityName", (req,res)=>{ // get all concerts from db
-    const username = req.body;
-    const tourName = req.params.tourName;
-    const city = req.params.cityName;
-    const getAllUsers = "SELECT DISTINCT (con.username) FROM test.concerts con, test.city c1 WHERE con.concertDate = c1.date AND c1.city = ? AND con.tourName = ? AND con.username != ?";
-    db.query(getAllUsers, [city], [tourName], [username], (err,data)=>{
+app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concerts from db
+
+    const values = [ /*"Lil Nas X", "Montero", "2022-09-11" */
+    req.params.cityName, //cityName
+    req.params.tourName, //tourName
+    req.params.username  //username  
+]
+
+    //console.log("values" , values);
+
+    const getAllUsers = "SELECT DISTINCT (con.username) FROM concerts con, city c1 WHERE con.concertDate = c1.date AND c1.city = ? AND con.tourName = ? AND con.username != ?";
+    db.query(getAllUsers, [ 
+    req.params.cityName, //cityName
+    req.params.tourName, //tourName
+    req.params.username  //username  
+], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/report2/:venueName", (req,res)=>{ // get all concerts from db
+
+    const getAllConcerts = "SELECT DISTINCT con.tourName, con.artistName, con.concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ";
+    db.query(getAllConcerts, [req.params.venueName], (err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
     })

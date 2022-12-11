@@ -1,12 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
-// import "./report1s.css";
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Topbar from '../components/Topbar'
 import { useLocation } from "react-router-dom";
+import "./reportOutput.css";
+
 
 
 const Report1 = () => {
@@ -19,14 +19,13 @@ const Report1 = () => {
     const tourName = location.pathname.split("/")[2];
     const cityName = location.pathname.split("/")[3];
 
-    console.log("user", currentUser);
     const [results, setResults] = useState([])
     useEffect(()=>{
         const fetchAllUsers = async ()=>{ // async function since making api request
             try{
-                const res = await axios.get("http://localhost:8800/report1/" + tourName + "/" + cityName, username)
+                const res = await axios.get("http://localhost:8800/report1/" + tourName + "/" + cityName + "/" + username)
                 setResults(res.data);
-                console.log(res)
+                console.log("res" , res)
             }catch(err){
                 console.log(err)
             }
@@ -39,18 +38,21 @@ const Report1 = () => {
   return (
     <>
     <Topbar />
-    <div className='report1Page'>
-    <h1 className='header'><u>{currentUser.name}'s Report 1</u></h1>
-
+    <div className='reportPage'>
+    <h1><u>{currentUser.name}'s Report 1</u></h1>
+    <p className='paragraph'>
+      Here are all the users who have attend the same tour in the same city as you:
+    </p>
  
-    <div className ="report1s">
-    {results.map(result=>(
+    <div>
+   
+   {results.map(result=>(
         <div className="report1" key={result}>
-          <h3>{result.tourName}</h3>
+          <h3>{result.username}</h3>
         </div>    
     ))
 
-    }
+    } 
     </div>
 
     </div>

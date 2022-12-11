@@ -9,15 +9,25 @@ import { useState } from "react";
 const Reports = () => {
   const { currentUser } = useContext(AuthContext);
 
-  const [query, setQuery] = useState({
-    //concert is the object and setConcerts is the setter method
+  //stores input from report 1's fields
+  const [query1, setQuery1] = useState({
     tourName: "",
     city: ""
   });
 
-  const handleChange = (e) => {
-    setQuery((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange1 = (e) => {
+    setQuery1((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+    //stores input from report 2's fields
+    const [query2, setQuery2] = useState({
+      venueName: "",
+    });
+    
+    const handleChange2 = (e) => {
+      setQuery2((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+  
 
 
   return (
@@ -32,24 +42,30 @@ const Reports = () => {
             <input
             type="text"
             placeholder="Tour Name"
-            onChange={handleChange}
+            onChange={handleChange1}
             name="tourName"
           />
           <input
             type="text"
             placeholder="City"
-            onChange={handleChange}
+            onChange={handleChange1}
             name="city"
           />
-            <button className='addR'><Link to={`/report1/${query.tourName}/${query.city}`}>Generate</Link></button>
+            <button className='addR'><Link to={`/report1/${query1.tourName}/${query1.city}`}>Generate</Link></button>
             {/* <button className="update"><Link to={`/updateArtist/${artist.artistID}`}>Update</Link></button> */}
 
           </div> {/* div that is formmating report 1 column */}
 
           <div className="report">
-          <h3>Report 2</h3>
-            <p> Descrption report 2</p>
-            <button className='addR'><Link to="/report2">Generate</Link></button>
+          <h3>Report 2: What concerts were held at this venue?</h3>
+            <p>Have you ever wondered about what other concerts where ever held at a venue? Just type in the name of the venue and we'll tell you all the concerts our users have been to at this venue!</p>
+            <input
+            type="text"
+            placeholder="Venue Name"
+            onChange={handleChange2}
+            name="venueName"
+          />
+            <button className='addR'><Link to={`/report2/${query2.venueName}`}>Generate</Link></button>
           </div> {/* div that is formmating report 2 column */}
 
           <div className="report">
