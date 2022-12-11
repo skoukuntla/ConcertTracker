@@ -228,7 +228,7 @@ app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concer
 
 app.get("/report2/:venueName", (req,res)=>{
 
-    const getCountUsers = "SELECT DISTINCT con.concertID, con.username, con.tourName, con.artistName, DATE_FORMAT(con.concertDate, '%m-%d-%Y') AS concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ORDER BY concertDate";
+    const getCountUsers = "SELECT DISTINCT con.tourName, con.artistName, DATE_FORMAT(con.concertDate, '%m-%d-%Y') AS concertDate FROM concerts con, venue v1 WHERE con.concertDate = v1.date AND v1.venue = ? ORDER BY concertDate";
     //SELECT DATE_FORMAT(concertDate, '%m-%d-%Y')  as concertDate, tourName, artistNam
     db.query(getCountUsers, [req.params.venueName], (err,data)=>{
         if(err) return res.json(err)
