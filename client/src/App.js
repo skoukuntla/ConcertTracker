@@ -41,7 +41,7 @@ function App() {
         <Route path ="/updateArtist/:artistID" element={<UpdateArtist/>}/>
         <Route path ="/addLocation" element={<AddLocation/>}/>
         <Route path ="/reports" element={<Reports/>}/>
-        <Route path ="/report1" element={<Report1/>}/>
+        <Route path ="/report1/:tourName/:city" element={<Report1/>}/>
         <Route path ="/report2" element={<Report2/>}/>
         <Route path ="/report3" element={<Report3/>}/>
         <Route path ="/report4" element={<Report4/>}/>

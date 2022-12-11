@@ -66,7 +66,7 @@ const Locations = () => {
  
     <div className ="locations">
     {locations.map(location=>(
-        <div className="location">
+        <div className="location" key={location}>
             <h2>{location.city}, {location.state}</h2>
             <h3>{location.venue}, {location.sectionNumber}</h3>
             <p>{location.date}</p>

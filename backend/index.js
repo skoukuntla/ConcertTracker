@@ -218,8 +218,19 @@ app.get("/locations/:username", (req,res)=>{ // get all concerts from db
 })
 
 
-
+app.get("/report1/:tourName/:cityName", (req,res)=>{ // get all concerts from db
+    const username = req.body;
+    const tourName = req.params.tourName;
+    const city = req.params.cityName;
+    const getAllUsers = "SELECT DISTINCT (con.username) FROM test.concerts con, test.city c1 WHERE con.concertDate = c1.date AND c1.city = ? AND con.tourName = ? AND con.username != ?";
+    db.query(getAllUsers, [city], [tourName], [username], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
 
 app.listen(8800, ()=>{ // connect server to port
     console.log("Connected to Backend!")
 })
+
+
