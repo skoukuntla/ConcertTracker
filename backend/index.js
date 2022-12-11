@@ -26,7 +26,151 @@ app.use((req, res, next) => {
   app.use("/backend/auth/", authRoutes)
   app.use("/backend/concerts/", concertRoutes)
 
+//START ORM
 
+//"SELECT * FROM concerts WHERE username = ?"
+app.get("/concerts1/:username", (req, res) => {
+    const username = req.params.username;
+    concerts.findAll({ where: {username: username }})
+    .then((concertsNewR) => {
+        res.send(concertsNewR);
+    }).catch((err) => {
+
+    if (err) {
+        console.log(err);
+    }
+    });
+});
+
+//"INSERT INTO concerts(`tourName`, `artistName`, `concertDate`, `username`) VALUES (?)"
+app.post("/concerts1", (req, res) => {
+    concerts.create({
+        tourName: req.body.tourName,
+        artistName: req.body.artistName,
+        concertDate: req.body.concertDate,
+        username: req.body.username
+    }).catch((err) => {
+        if (err) {
+        console.log(err);
+    }
+}); 
+    res.send("insert");
+});
+
+
+
+//"DELETE FROM concerts WHERE concertID = ?"
+app.get("/concerts1/:concertID", (req, res) => { // delete specific concert into db
+    const concertID = req.params.concertID; //// .params is the url and the concertID is what's passed into the url concertID part
+    concerts.destroy({ where: {city: concertID }});
+    res.send("delete")
+}); // which concert do you want to delete? pass in concertID
+  
+
+//INSERT INTO artists(`artistName`, `genre`, `username`) VALUES (?)
+app.post("/addArtist1", (req, res) => {
+    artists.create({
+        artistName: req.body.artistName,
+        genre: req.body.genre,
+        username: req.body.username
+    }).catch((err) => {
+        if (err) {
+        console.log(err);
+    }
+});
+    
+    res.send("insert Artists");
+});
+
+
+//"SELECT * FROM artists WHERE username = ?"
+app.get("/artists1/:username", (req, res) => {
+    const username = req.params.username;
+    artistsNew.findAll({ where: {city: username }})
+    .then((artistsNew) => {
+        res.send(artistsNew);
+    }).catch((err) => {
+    if (err) {
+        console.log(err);
+    }
+    });
+});
+
+
+//DELETE FROM artists WHERE artistID = ?
+app.get("/artists1/:artistID", (req, res) => { // delete specific artist into db
+    const artistID = req.params.artistID;
+    citynew.destroy({ where: {city: artistID }});
+    res.send("delete")
+}); // which concert do you want to delete? pass in concertID
+
+
+app.delete("/artists1/:artistID", (req, res)=>{ // delete specific concert into db
+    const artistID = req.params.artistID; // .params is the url and the concertID is what's passed into the url concertID part
+    const deleteArtistsQuery = "DElETE FROM artists WHERE artistID = ?"
+    db.query(deleteArtistsQuery,[artistID],(err,data)=>{
+        if(err) return res.json(err)
+        return res.json("Artist has been deleted successfully.")
+    })
+}); // which concert do you want to delete? pass in concertID
+
+
+//"INSERT INTO city(`date`, `city`,`state`, `username`) VALUES (?)"
+app.post("/addCity1", (req, res) => {
+    citynew.create({
+        date: req.body.date, 
+        city: req.body.cityName,
+        state: req.body.stateName,
+        username: req.body.username
+    }).catch((err) => {
+        if (err) {
+        console.log(err);
+        }
+});
+res.send("insert Cities");
+});
+
+
+app.post("/venue1/:venueName/:sectionNumber/:date", (req, res) => {
+    citynew.create({
+        venue: req.params.venueName, 
+        sectionNumber: req.params.sectionNumber,
+        date: req.params.date
+    }).catch((err) => {
+        if (err) {
+            console.log(err);
+        }
+})
+res.send("insert Venue");
+});
+
+
+//INSERT INTO venue(`date`, `venue`,`sectionNumber`, `username`) VALUES (?)
+app.post("/addVenue1", (req, res) => {
+    citynew.create({
+        date: req.body.date,
+        venue: req.body.venueName,
+        sectionNumber: req.body.sectionNumber,
+        username: req.body.username
+    }).catch((err) => {
+        if (err) {
+        console.log(err);
+    }
+});
+res.send("insert Venue");
+});
+
+
+app.get("/locations1/:username", (req,res)=>{ // get all concerts from db
+    const username = req.params.username;
+    const getAllLocations = "SELECT * from city c1, venue v1 where c1.date = v1.date AND c1.username = ? AND (v1.username = c1.username)"
+    db.query(getAllLocations, [username], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+});
+
+//END OF ORM
 
 // concerts api calls
 app.get("/concerts/:username", (req,res)=>{ // get all concerts from db
