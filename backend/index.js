@@ -172,6 +172,37 @@ app.get("/locations1/:username", (req,res)=>{ // get all concerts from db
 
 //END OF ORM
 
+// PREPARED STATEMENT UPDATES
+app.put("/concerts/:concertID", (req, res)=>{ // update specific concert into db
+    const concertID = req.params.concertID; // .params is the url and the concertID is what's passed into the url concertID part
+    const updateConcertsQuery = "UPDATE concerts SET `tourName` = ?, `artistName` = ?, `concertDate` = ? WHERE concertID = ?";
+
+    const values = [
+    req.body.tourName, 
+    req.body.artistName,
+    req.body.concertDate
+    ]
+
+    db.query(updateConcertsQuery,[...values, concertID],(err,data)=>{ //calls everything in values and the concertID
+        if(err) return res.json(err)
+        return res.json("Concert has been updated successfully.")
+    })
+}) // which concert do you want to update? pass in concertID
+
+app.put("/artists/:artistID", (req, res)=>{ // update specific artist in db
+    const artistID = req.params.artistID; // .params is the url and the concertID is what's passed into the url concertID part
+    const updateArtistsQuery = "UPDATE artists SET `artistName` = ?, `genre` = ? WHERE artistID = ?";
+
+    const values = [
+    req.body.artistName, 
+    req.body.genre,
+    ]
+
+    db.query(updateArtistsQuery,[...values, artistID],(err,data)=>{ 
+        if(err) return res.json(err)
+        return res.json("Artist has been updated successfully.")
+    })
+}) // which artist do you want to update? pass in artistID
 
 // PREPARED STATEMENT QUERIES FOR REPORTS
 app.get("/report1/:tourName/:cityName/:username", (req,res)=>{ // get all concerts from db
@@ -254,21 +285,7 @@ app.post("/concerts",(req,res)=>{ // insert concert into db
 
 })
 
-app.put("/concerts/:concertID", (req, res)=>{ // update specific concert into db
-    const concertID = req.params.concertID; // .params is the url and the concertID is what's passed into the url concertID part
-    const updateConcertsQuery = "UPDATE concerts SET `tourName` = ?, `artistName` = ?, `concertDate` = ? WHERE concertID = ?";
 
-    const values = [
-    req.body.tourName, 
-    req.body.artistName,
-    req.body.concertDate
-    ]
-
-    db.query(updateConcertsQuery,[...values, concertID],(err,data)=>{ //calls everything in values and the concertID
-        if(err) return res.json(err)
-        return res.json("Concert has been updated successfully.")
-    })
-}) // which concert do you want to update? pass in concertID
 
 app.delete("/concerts/:concertID", (req, res)=>{ // delete specific concert into db
     const concertID = req.params.concertID; // .params is the url and the concertID is what's passed into the url concertID part
@@ -317,20 +334,6 @@ app.delete("/artists/:artistID", (req, res)=>{ // delete specific concert into d
     })
 }) // which concert do you want to delete? pass in concertID
 
-app.put("/artists/:artistID", (req, res)=>{ // update specific artist in db
-    const artistID = req.params.artistID; // .params is the url and the concertID is what's passed into the url concertID part
-    const updateArtistsQuery = "UPDATE artists SET `artistName` = ?, `genre` = ? WHERE artistID = ?";
-
-    const values = [
-    req.body.artistName, 
-    req.body.genre,
-    ]
-
-    db.query(updateArtistsQuery,[...values, artistID],(err,data)=>{ 
-        if(err) return res.json(err)
-        return res.json("Artist has been updated successfully.")
-    })
-}) // which artist do you want to update? pass in artistID
 
 // locations api calls
 
